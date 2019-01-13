@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_DIR" value="/opt/log/chaindd_collect"/>
+    <springProperty scope="context" name="logLevel" source="log.level"/>
+    <appender name="rollingFileINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/chaindd_collect.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/chainddwallet.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 30 day -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] - %msg %n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>10.192.2.239:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"appname":"chainddwallet-dev"}</customFields>
+        </encoder>
+        <connectionStrategy>
+            <roundRobin>
+                <connectionTTL>1 minutes</connectionTTL>
+            </roundRobin>
+        </connectionStrategy>
+    </appender>-->
+
+    <logger name="org.springframework" level="INFO"/>
+    <!--<logger name="com.mljr.carfinance.crm.provider" level="INFO" />-->
+    <!--<logger name="com.alibaba.dubbo" level="WARN"/>-->
+    <!--<logger name="org.apache.zookeeper" level="WARN"/>-->
+    <!--<logger name="com.mljr.carfinance.crm.provider.mapper" level="DEBUG"/>-->
+
+    <!--<root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="rollingFileINFO"/>
+    </root>-->
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <!--<appender-ref ref="FILEERROR"/>-->
+            <!--<appender-ref ref="FILEWARN"/>-->
+            <!--<appender-ref ref="FILEINFO"/>-->
+            <!--<appender-ref ref="DBAPPENDER"/>-->
+            <appender-ref ref="console"/>
+           <!-- <appender-ref ref="rollingFileINFO"/>-->
+           <!-- <appender-ref ref="logstash"/>-->
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="DEBUG">
+            <!--<appender-ref ref="FILEERROR"/>-->
+            <!--<appender-ref ref="FILEWARN"/>-->
+            <!--<appender-ref ref="FILEINFO"/>-->
+            <!--<appender-ref ref="DBAPPENDER"/>-->
+            <appender-ref ref="console"/>
+            <appender-ref ref="rollingFileINFO"/>
+            <!-- <appender-ref ref="logstash"/>-->
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <!--<appender-ref ref="FILEERROR"/>-->
+            <!--<appender-ref ref="FILEWARN"/>-->
+            <!--<appender-ref ref="FILEINFO"/>-->
+            <!--<appender-ref ref="DBAPPENDER"/>-->
+            <appender-ref ref="console"/>
+            <appender-ref ref="rollingFileINFO"/>
+            <!--<appender-ref ref="logstash"/>-->
+        </root>
+    </springProfile>
+
+</configuration>
