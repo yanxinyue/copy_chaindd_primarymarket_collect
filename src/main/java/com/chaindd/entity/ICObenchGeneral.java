@@ -20,17 +20,8 @@ public class ICObenchGeneral implements Serializable {
     private String logoUrl="";
     @Column(name = "ico_name",unique=true, nullable=false)
     private String name="";
-    @Column(name = "goal")
-    private String goal="";
-    @Column(name = "hype_score")
-    private String hype_score="";
-    @Column(name = "risk_score")
-    private String risk_score="";
-    @Column(name = "investment_rating")
-    private String investment_rating="";
-    @Column(name = "investment_rating_end_date")
-    private String investment_rating_end_date	="";
-
+    @Column(name = "introduction")
+    private String introduction="";
     @Column(name = "restrictionskyc")
     private String restrictionsKYC="";
     @Column(name = "whitelist")
@@ -45,6 +36,8 @@ public class ICObenchGeneral implements Serializable {
     private String rate="";
     @Column(name = "pre")
     private boolean pre=false;
+    @Column(name = "info_url")
+    private String infoUrl="";
 
     public ICObenchGeneral() {
     }
